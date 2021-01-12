@@ -1,20 +1,10 @@
 'use strict';
 
-const quote = fetch('https://api.chucknorris.io/jokes/random?category=dev')
-    .then(function (response) {
-        console.log(response);
-        return response.json();
-    })
-    .then(data => {
-        updateBody(data.value);
-        return data;
-    })
-    .catch(error => {
-        console.error("ERROR:", error);
-        return error;
-    });
-
 function updateBody(quote) {
-    const chuckSays = document.querySelector('#chuckSays');
-    chuckSays.innerHTML = quote;
+    const main = document.querySelector('#main');
+    // use the 'createElement' method to make a new element in the DOM
+    const paragraph = document.createElement('p');
+    paragraph.innerHTML = quote;
+    // This actually injects the paragraph into the DOM
+    main.appendChild(paragraph);
 }
