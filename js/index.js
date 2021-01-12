@@ -1,7 +1,7 @@
 'use strict';
 
-function getQuote() {
-    const url = "https://api.chucknorris.io/jokes/random?category=dev";
+function getQuote(category) {
+    const url = `https://api.chucknorris.io/jokes/random?category=${category}`;
     get(url).then(response => {
         updateBody(response.value);
     });
@@ -17,6 +17,15 @@ function getCategories() {
 
 function updateBody(quote) {
     const main = document.querySelector('#main');
+
+    // Find and remove any existing paragraphs.
+    const paragraphs = document.querySelectorAll('p');
+    if (paragraphs.length > 0) {
+        paragraphs.forEach(paragraph => {
+            paragraph.remove();
+        })
+    }
+
     // use the 'createElement' method to make a new element in the DOM
     const paragraph = document.createElement('p');
     paragraph.innerHTML = quote;
@@ -26,16 +35,34 @@ function updateBody(quote) {
 
 // Create a list of the categories from the API and place it in the DOM.
 function buildCategoryList(categoryList) {
-    const main = document.querySelector('#main')
-    const categoryUL = document.createElement('ul');
-    categoryList.map(category => {
-        const categoryLI = document.createElement('li');
-        categoryLI.innerHTML = category;
-        categoryUL.appendChild(categoryLI);
+    // Filter out the 'explicit', 'animal' and 'celebrity' categories
+    const filteredList = categoryList.filter(category => {
+        if (category !== 'explicit' && category !== 'celebrity' && category !== 'animal') {
+            return category;
+        }
     });
-    console.log(categoryUL);
-    main.appendChild(categoryUL);
+    
+    const form = document.querySelector('#changeQuote')
+    const main = document.querySelector('#main')
+    const categorySelect = document.createElement('select');
+    filteredList.map(category => {
+        const categoryOption = document.createElement('option');
+        categoryOption.value = category;
+        categoryOption.text = category;
+        categorySelect.appendChild(categoryOption);
+    });
+    form.appendChild(categorySelect);
+
+    categorySelect.addEventListener('change', event => {
+        getQuote(event.target.value);
+    })
+}
+
+// Copied from modal exercise
+function toggleModal() {
+    const modalOverlay = document.querySelector("#overlay");
+    modalOverlay.classList.toggle("visible");
 }
 
 getCategories();
-getQuote();
+getQuote('career');

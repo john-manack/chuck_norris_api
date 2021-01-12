@@ -1,6 +1,6 @@
 'use strict';
 
-// YOU CAN USE THIS FUNCTION BELOW FOR ANY API THAT USES JSON
+// YOU CAN USE THIS FUNCTION BELOW FOR ANY API THAT USES JSON (it's a "helper")
 function get(url) {
     // Step 1: Ask for the data
     return fetch(url)
