@@ -10,30 +10,16 @@ function getQuote(category) {
 function getCategories() {
     const url = "https://api.chucknorris.io/jokes/categories";
     get(url).then(response => {
-        console.log("Category response:", response);
         buildCategoryList(response);
     });
 }
 
 function updateBody(quote) {
-    const main = document.querySelector('#main');
-
-    // Find and remove any existing paragraphs.
-    const paragraphs = document.querySelectorAll('p');
-    if (paragraphs.length > 0) {
-        paragraphs.forEach(paragraph => {
-            paragraph.remove();
-        })
-    }
-
-    // use the 'createElement' method to make a new element in the DOM
-    const paragraph = document.createElement('p');
+    const paragraph = document.querySelector('#modal p');
     paragraph.innerHTML = quote;
-    // This actually injects the paragraph into the DOM
-    main.appendChild(paragraph);
+    toggleModal();
 }
 
-// Create a list of the categories from the API and place it in the DOM.
 function buildCategoryList(categoryList) {
     // Filter out the 'explicit', 'animal' and 'celebrity' categories
     const filteredList = categoryList.filter(category => {
@@ -43,7 +29,6 @@ function buildCategoryList(categoryList) {
     });
     
     const form = document.querySelector('#changeQuote')
-    const main = document.querySelector('#main')
     const categorySelect = document.createElement('select');
     filteredList.map(category => {
         const categoryOption = document.createElement('option');
@@ -58,11 +43,6 @@ function buildCategoryList(categoryList) {
     })
 }
 
-// Copied from modal exercise
-const showModal = document.querySelector('#showModal');
-const closeModal = document.querySelector('#closeModal');
-
-showModal.addEventListener('click', toggleModal);
 closeModal.addEventListener('click', toggleModal);
 
 function toggleModal() {
