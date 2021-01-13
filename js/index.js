@@ -16,7 +16,7 @@ function getCategories() {
 }
 
 function updateBody(quote) {
-    const main = document.querySelector('#main');
+    const main = document.querySelector('.modal-body');
 
     // Find and remove any existing paragraphs.
     const paragraphs = document.querySelectorAll('p');
@@ -56,18 +56,6 @@ function buildCategoryList(categoryList) {
     categorySelect.addEventListener('change', event => {
         getQuote(event.target.value);
     })
-}
-
-// Copied from modal exercise
-const showModal = document.querySelector('#showModal');
-const closeModal = document.querySelector('#closeModal');
-
-showModal.addEventListener('click', toggleModal);
-closeModal.addEventListener('click', toggleModal);
-
-function toggleModal() {
-    const modalOverlay = document.querySelector("#overlay");
-    modalOverlay.classList.toggle("visible");
 }
 
 getCategories();
