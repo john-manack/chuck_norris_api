@@ -37,7 +37,7 @@ function updateBody(quote) {
 function buildCategoryList(categoryList) {
     // Filter out the 'explicit', 'animal' and 'celebrity' categories
     const filteredList = categoryList.filter(category => {
-        if (category !== 'explicit' && category !== 'celebrity' && category !== 'animal') {
+        if (category !== 'explicit' && category !== 'celebrity' && category !== 'animal' && category !== 'political' && category !== 'money') {
             return category;
         }
     });
